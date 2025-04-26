@@ -1,2 +1,28 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Posts on Doong Blog</title><link>https://vardoong.github.io/doong/posts/</link><description>Recent content in Posts on Doong Blog</description><generator>Hugo -- 0.147.0</generator><language>en-us</language><lastBuildDate>Sat, 26 Apr 2025 11:56:03 +0900</lastBuildDate><atom:link href="https://vardoong.github.io/doong/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>My Second Post</title><link>https://vardoong.github.io/doong/posts/my-second-post/</link><pubDate>Sat, 26 Apr 2025 11:56:03 +0900</pubDate><guid>https://vardoong.github.io/doong/posts/my-second-post/</guid><description>&lt;h1 id="second-test">second test&lt;/h1>
-&lt;p>something cool content&lt;/p></description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Posts on Doong Blog</title><link>https://vardoong.github.io/doong/posts/</link><description>Recent content in Posts on Doong Blog</description><generator>Hugo -- 0.147.0</generator><language>en-us</language><lastBuildDate>Sat, 26 Apr 2025 14:14:17 +0900</lastBuildDate><atom:link href="https://vardoong.github.io/doong/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Hugo + GitHub Pages로 블로그 만들기 (PaperMod 테마)</title><link>https://vardoong.github.io/doong/posts/hugo-and-github/</link><pubDate>Sat, 26 Apr 2025 14:14:17 +0900</pubDate><guid>https://vardoong.github.io/doong/posts/hugo-and-github/</guid><description>&lt;h2 id="1-github에-레포지토리-만들기">1. GitHub에 레포지토리 만들기&lt;/h2>
+&lt;ul>
+&lt;li>새 레포지토리 생성&lt;/li>
+&lt;li>&lt;strong>public 설정&lt;/strong> (GitHub Pages는 public이어야 정상 배포됨)&lt;/li>
+&lt;li>이름은 원하는 대로, 예: &lt;code>doong&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>git init
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git remote add origin https://github.com/사용자명/레포명.git
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="2-hugo-설치">2. Hugo 설치&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>brew install hugo
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>설치 후 버전 확인:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>hugo version
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="3-hugo-프로젝트-생성">3. Hugo 프로젝트 생성&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>hugo new site .
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="4-papermod-테마-추가-서브모듈-방식">4. PaperMod 테마 추가 (서브모듈 방식)&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>git submodule add https://github.com/adityatelange/hugo-PaperMod themes/PaperMod
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="5-configtoml-설정">5. config.toml 설정&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-toml" data-lang="toml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">baseURL&lt;/span> = &lt;span style="color:#e6db74">&amp;#39;https://사용자명.github.io/레포명/&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">languageCode&lt;/span> = &lt;span style="color:#e6db74">&amp;#39;en-us&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">title&lt;/span> = &lt;span style="color:#e6db74">&amp;#39;My Blog&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">theme&lt;/span> = &lt;span style="color:#e6db74">&amp;#39;PaperMod&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>[&lt;span style="color:#a6e22e">params&lt;/span>]
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">homeInfoParams&lt;/span> = { &lt;span style="color:#a6e22e">Title&lt;/span> = &lt;span style="color:#e6db74">&amp;#34;Welcome&amp;#34;&lt;/span>, &lt;span style="color:#a6e22e">Content&lt;/span> = &lt;span style="color:#e6db74">&amp;#34;이게 블로그 라는 건가?&amp;#34;&lt;/span> }
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="6-글-작성">6. 글 작성&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>hugo new posts/hello-world.md
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="7-github-actions로-자동-배포-설정">7. GitHub Actions로 자동 배포 설정&lt;/h2>
+&lt;p>.github/workflows/gh-pages.yml 만들고:&lt;/p></description></item></channel></rss>
