@@ -1,0 +1,10 @@
+baseURL = 'https://vardoong.github.io/doong/'
+languageCode = 'en-us'
+title = 'Doong Blog'
+theme = 'PaperMod'
+
+[params]
+  homeInfoParams = { 
+    Title = "Welcome to Doong's Blog", 
+    Content = "do do do doong"
+  }
