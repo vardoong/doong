@@ -1,4 +1,63 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Posts on Doong Blog</title><link>https://vardoong.github.io/doong/posts/</link><description>Recent content in Posts on Doong Blog</description><generator>Hugo -- 0.147.0</generator><language>en-us</language><lastBuildDate>Sat, 26 Apr 2025 14:14:17 +0900</lastBuildDate><atom:link href="https://vardoong.github.io/doong/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Hugo + GitHub Pages로 블로그 만들기 (PaperMod 테마)</title><link>https://vardoong.github.io/doong/posts/hugo-and-github/</link><pubDate>Sat, 26 Apr 2025 14:14:17 +0900</pubDate><guid>https://vardoong.github.io/doong/posts/hugo-and-github/</guid><description>&lt;h2 id="1-github에-레포지토리-만들기">1. GitHub에 레포지토리 만들기&lt;/h2>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Posts on Doong Blog</title><link>https://vardoong.github.io/doong/posts/</link><description>Recent content in Posts on Doong Blog</description><generator>Hugo -- 0.147.0</generator><language>en-us</language><lastBuildDate>Sat, 26 Apr 2025 14:27:38 +0900</lastBuildDate><atom:link href="https://vardoong.github.io/doong/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>AWS EC2 + Nginx + Spring + SSL 배포 가이드</title><link>https://vardoong.github.io/doong/posts/aws-ec2-dns-nginx/</link><pubDate>Sat, 26 Apr 2025 14:27:38 +0900</pubDate><guid>https://vardoong.github.io/doong/posts/aws-ec2-dns-nginx/</guid><description>&lt;p>Spring 프로젝트를 AWS EC2에 배포하고&lt;br>
+&lt;strong>Nginx 리버스 프록시 + SSL(HTTPS)&lt;/strong> 까지 적용한 기록.&lt;/p>
+&lt;hr>
+&lt;h2 id="-사용-환경">☁️ 사용 환경&lt;/h2>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align: left">항목&lt;/th>
+&lt;th style="text-align: left">내용&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align: left">도메인&lt;/td>
+&lt;td style="text-align: left">&lt;code>www.my-example.com&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">EC2 OS&lt;/td>
+&lt;td style="text-align: left">Amazon Linux 2023&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">EC2 IP&lt;/td>
+&lt;td style="text-align: left">&lt;code>123.1.2.3&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">EC2 DNS&lt;/td>
+&lt;td style="text-align: left">&lt;code>ec2-123-1-2-3.region.compute.amazonaws.com&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">키 파일&lt;/td>
+&lt;td style="text-align: left">&lt;code>prj-mojo.pem&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">웹서버&lt;/td>
+&lt;td style="text-align: left">Nginx (80 → 8080 프록시)&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">애플리케이션&lt;/td>
+&lt;td style="text-align: left">Spring Boot (port 8080)&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">SSL 인증서&lt;/td>
+&lt;td style="text-align: left">Let&amp;rsquo;s Encrypt + Certbot&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="1-aws-ec2-생성">1️⃣ AWS EC2 생성&lt;/h2>
+&lt;ul>
+&lt;li>Amazon Linux 2023&lt;/li>
+&lt;li>프리티어 / default 설정으로 생성&lt;/li>
+&lt;li>퍼블릭 IP 확인 (예: &lt;code>123.1.2.3&lt;/code>)&lt;/li>
+&lt;/ul>
+&lt;h2 id="2-ec2-접속">2️⃣ EC2 접속&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>ssh -i prj-mojo.pem ec2-user@ec2-123-1-2-3.region.compute.amazonaws.com
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="3-java-17-설치">3️⃣ Java 17 설치&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo yum install java-17-amazon-corretto -y
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="4-nginx-설치">4️⃣ Nginx 설치&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo yum install nginx -y
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="5-ec2-보안-그룹-설정">5️⃣ EC2 보안 그룹 설정&lt;/h2>
+&lt;p>인바운드 규칙 추가:&lt;/p></description></item><item><title>Hugo + GitHub Pages로 블로그 만들기 (PaperMod 테마)</title><link>https://vardoong.github.io/doong/posts/hugo-and-github/</link><pubDate>Sat, 26 Apr 2025 14:14:17 +0900</pubDate><guid>https://vardoong.github.io/doong/posts/hugo-and-github/</guid><description>&lt;h2 id="1-github에-레포지토리-만들기">1. GitHub에 레포지토리 만들기&lt;/h2>
 &lt;ul>
 &lt;li>새 레포지토리 생성&lt;/li>
 &lt;li>&lt;strong>public 설정&lt;/strong> (GitHub Pages는 public이어야 정상 배포됨)&lt;/li>
