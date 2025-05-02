@@ -1,4 +1,90 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Doong Blog</title><link>https://vardoong.github.io/doong/</link><description>Recent content on Doong Blog</description><generator>Hugo -- 0.147.0</generator><language>en-us</language><lastBuildDate>Sat, 26 Apr 2025 14:27:38 +0900</lastBuildDate><atom:link href="https://vardoong.github.io/doong/index.xml" rel="self" type="application/rss+xml"/><item><title>AWS EC2 + Nginx + Spring + SSL 배포 가이드</title><link>https://vardoong.github.io/doong/posts/aws-ec2-dns-nginx/</link><pubDate>Sat, 26 Apr 2025 14:27:38 +0900</pubDate><guid>https://vardoong.github.io/doong/posts/aws-ec2-dns-nginx/</guid><description>&lt;p>Spring 프로젝트를 AWS EC2에 배포하고&lt;br>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Doong Blog</title><link>https://vardoong.github.io/doong/</link><description>Recent content on Doong Blog</description><generator>Hugo -- 0.147.1</generator><language>en-us</language><lastBuildDate>Fri, 02 May 2025 15:21:04 +0900</lastBuildDate><atom:link href="https://vardoong.github.io/doong/index.xml" rel="self" type="application/rss+xml"/><item><title>GitHub Labels 자동 생성 스크립트 만들기</title><link>https://vardoong.github.io/doong/posts/github-labels/</link><pubDate>Fri, 02 May 2025 15:21:04 +0900</pubDate><guid>https://vardoong.github.io/doong/posts/github-labels/</guid><description>&lt;h1 id="github-labels-자동-생성-스크립트-만들기">GitHub Labels 자동 생성 스크립트 만들기&lt;/h1>
+&lt;p>이 글은 GitHub 이슈/PR 라벨을 일관성 있게 관리하기 위한 &lt;code>labels.sh&lt;/code> 자동화 스크립트를 만드는 방법과 실행 절차를 소개합니다.&lt;/p>
+&lt;hr>
+&lt;h2 id="1-labelssh-파일을-만드는-이유와-작성-방식">1. &lt;code>labels.sh&lt;/code> 파일을 만드는 이유와 작성 방식&lt;/h2>
+&lt;h3 id="-왜-필요한가">✅ 왜 필요한가?&lt;/h3>
+&lt;ul>
+&lt;li>협업 중 라벨 이름이나 색상이 제각각이면 이슈 분류나 필터링이 어려움&lt;/li>
+&lt;li>레포지토리마다 라벨을 매번 수동으로 만들기 귀찮음&lt;/li>
+&lt;li>&lt;code>.sh&lt;/code> 파일과 &lt;code>labels.json&lt;/code> 파일로 라벨을 템플릿처럼 관리 가능&lt;/li>
+&lt;/ul>
+&lt;h3 id="-어떤-구조로-작성하는가">✅ 어떤 구조로 작성하는가?&lt;/h3>
+&lt;p>&lt;code>labels.sh&lt;/code>는 GitHub CLI(&lt;code>gh&lt;/code>)와 JSON 파서를 위한 &lt;code>jq&lt;/code>를 이용합니다.&lt;/p>
+&lt;h4 id="예시-labelssh">예시: labels.sh&lt;/h4>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">#!/bin/bash
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>REPO&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;your-username/your-repo&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>LABELS_FILE&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;labels.json&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">if&lt;/span> ! command -v jq &amp;amp;&amp;gt; /dev/null; &lt;span style="color:#66d9ef">then&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> echo &lt;span style="color:#e6db74">&amp;#34;❌ jq 명령어가 필요합니다. 설치 후 다시 시도하세요.&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> exit &lt;span style="color:#ae81ff">1&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">fi&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>echo &lt;span style="color:#e6db74">&amp;#34;🔄 GitHub 라벨을 업데이트합니다...&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>jq -c &lt;span style="color:#e6db74">&amp;#39;.[]&amp;#39;&lt;/span> &lt;span style="color:#e6db74">&amp;#34;&lt;/span>$LABELS_FILE&lt;span style="color:#e6db74">&amp;#34;&lt;/span> | &lt;span style="color:#66d9ef">while&lt;/span> read -r label; &lt;span style="color:#66d9ef">do&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> NAME&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#66d9ef">$(&lt;/span>echo &lt;span style="color:#e6db74">&amp;#34;&lt;/span>$label&lt;span style="color:#e6db74">&amp;#34;&lt;/span> | jq -r &lt;span style="color:#e6db74">&amp;#39;.name&amp;#39;&lt;/span>&lt;span style="color:#66d9ef">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> COLOR&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#66d9ef">$(&lt;/span>echo &lt;span style="color:#e6db74">&amp;#34;&lt;/span>$label&lt;span style="color:#e6db74">&amp;#34;&lt;/span> | jq -r &lt;span style="color:#e6db74">&amp;#39;.color&amp;#39;&lt;/span> | sed &lt;span style="color:#e6db74">&amp;#39;s/#//&amp;#39;&lt;/span>&lt;span style="color:#66d9ef">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> DESCRIPTION&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#66d9ef">$(&lt;/span>echo &lt;span style="color:#e6db74">&amp;#34;&lt;/span>$label&lt;span style="color:#e6db74">&amp;#34;&lt;/span> | jq -r &lt;span style="color:#e6db74">&amp;#39;.description&amp;#39;&lt;/span>&lt;span style="color:#66d9ef">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> echo &lt;span style="color:#e6db74">&amp;#34;🛠️ &lt;/span>$NAME&lt;span style="color:#e6db74"> 처리 중...&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> gh label delete &lt;span style="color:#e6db74">&amp;#34;&lt;/span>$NAME&lt;span style="color:#e6db74">&amp;#34;&lt;/span> --repo &lt;span style="color:#e6db74">&amp;#34;&lt;/span>$REPO&lt;span style="color:#e6db74">&amp;#34;&lt;/span> --yes 2&amp;gt;/dev/null
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> gh label create &lt;span style="color:#e6db74">&amp;#34;&lt;/span>$NAME&lt;span style="color:#e6db74">&amp;#34;&lt;/span> &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ae81ff">&lt;/span> --color &lt;span style="color:#e6db74">&amp;#34;&lt;/span>$COLOR&lt;span style="color:#e6db74">&amp;#34;&lt;/span> &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ae81ff">&lt;/span> --description &lt;span style="color:#e6db74">&amp;#34;&lt;/span>$DESCRIPTION&lt;span style="color:#e6db74">&amp;#34;&lt;/span> &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ae81ff">&lt;/span> --repo &lt;span style="color:#e6db74">&amp;#34;&lt;/span>$REPO&lt;span style="color:#e6db74">&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">done&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>echo &lt;span style="color:#e6db74">&amp;#34;✅ 완료!&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="예시-labelsjson">예시: labels.json&lt;/h4>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-json" data-lang="json">&lt;span style="display:flex;">&lt;span>[
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> { &lt;span style="color:#f92672">&amp;#34;name&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;type: bug&amp;#34;&lt;/span>, &lt;span style="color:#f92672">&amp;#34;color&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;#FF2E63&amp;#34;&lt;/span>, &lt;span style="color:#f92672">&amp;#34;description&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;버그 또는 오류&amp;#34;&lt;/span> },
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> { &lt;span style="color:#f92672">&amp;#34;name&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;type: feature&amp;#34;&lt;/span>, &lt;span style="color:#f92672">&amp;#34;color&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;#08D9D6&amp;#34;&lt;/span>, &lt;span style="color:#f92672">&amp;#34;description&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;새로운 기능&amp;#34;&lt;/span> },
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> { &lt;span style="color:#f92672">&amp;#34;name&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;priority: high&amp;#34;&lt;/span>, &lt;span style="color:#f92672">&amp;#34;color&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;#FF0000&amp;#34;&lt;/span>, &lt;span style="color:#f92672">&amp;#34;description&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;긴급 처리&amp;#34;&lt;/span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>]
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="-컬러나-종류는-어떻게-정하나">✅ 컬러나 종류는 어떻게 정하나?&lt;/h3>
+&lt;ul>
+&lt;li>색상은 팀의 컨셉 컬러를 기반으로 선정 (&lt;code>#FF2E63&lt;/code>, &lt;code>#252A34&lt;/code>, &lt;code>#08D9D6&lt;/code>, &lt;code>#EAEAEA&lt;/code> 등)&lt;/li>
+&lt;li>&lt;code>type&lt;/code>, &lt;code>priority&lt;/code>, &lt;code>status&lt;/code> 같이 prefix로 그룹을 나누면 관리하기 쉬움&lt;/li>
+&lt;li>색상 조합 도구: &lt;a href="https://coolors.co/">https://coolors.co/&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h2 id="2-파일-만들고-실행하는-방법">2. 파일 만들고 실행하는 방법&lt;/h2>
+&lt;h3 id="-준비물">🧱 준비물&lt;/h3>
+&lt;ul>
+&lt;li>GitHub CLI 설치: &lt;a href="https://cli.github.com/">https://cli.github.com/&lt;/a>&lt;/li>
+&lt;li>&lt;code>jq&lt;/code> 설치
+&lt;ul>
+&lt;li>macOS: &lt;code>brew install jq&lt;/code>&lt;/li>
+&lt;li>Ubuntu: &lt;code>sudo apt install jq&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h3 id="-실행-절차">📁 실행 절차&lt;/h3>
+&lt;ol>
+&lt;li>위 &lt;code>labels.sh&lt;/code>와 &lt;code>labels.json&lt;/code> 파일을 원하는 폴더에 저장&lt;/li>
+&lt;li>&lt;code>.sh&lt;/code> 파일 실행 권한 부여
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>chmod +x labels.sh
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>GitHub CLI 로그인
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>gh auth login
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>실행
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>./labels.sh
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>완료 후 GitHub 레포지토리 &amp;gt; Issues 탭에서 라벨이 반영됐는지 확인&lt;/li>
+&lt;/ol>
+&lt;hr>
+&lt;h2 id="-참고">📌 참고&lt;/h2>
+&lt;ul>
+&lt;li>GitHub 공식 &lt;code>gh label&lt;/code> 문서: &lt;a href="https://cli.github.com/manual/gh_label">https://cli.github.com/manual/gh_label&lt;/a>&lt;/li>
+&lt;li>&lt;code>jq&lt;/code> 튜토리얼: &lt;a href="https://stedolan.github.io/jq/tutorial/">https://stedolan.github.io/jq/tutorial/&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;p>이렇게 만들어두면 새로운 프로젝트 세팅할 때나 다른 레포로 옮길 때 아주 유용하게 쓸 수 있습니다. 😉&lt;/p></description></item><item><title>AWS EC2 + Nginx + Spring + SSL 배포 가이드</title><link>https://vardoong.github.io/doong/posts/aws-ec2-dns-nginx/</link><pubDate>Sat, 26 Apr 2025 14:27:38 +0900</pubDate><guid>https://vardoong.github.io/doong/posts/aws-ec2-dns-nginx/</guid><description>&lt;p>Spring 프로젝트를 AWS EC2에 배포하고&lt;br>
 &lt;strong>Nginx 리버스 프록시 + SSL(HTTPS)&lt;/strong> 까지 적용한 기록.&lt;/p>
 &lt;hr>
 &lt;h2 id="-사용-환경">☁️ 사용 환경&lt;/h2>
