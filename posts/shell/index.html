@@ -1,0 +1,110 @@
+<!doctype html><html lang=en dir=auto><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=robots content="index, follow"><title>Shell 설정 파일 정리 | Doong Blog</title>
+<meta name=keywords content><meta name=description content="🔍 Shell 설정 파일 정리: .bashrc vs .zshrc
+터미널 설정을 자주 바꾸다 보면 ~/.bashrc와 ~/.zshrc가 헷갈릴 수 있다. 두 파일의 공통점과 차이점을 정리해본다.
+
+✅ 공통점
+
+모두 셸 실행 시 로드되는 설정 파일이다.
+보통 다음과 같은 용도로 사용된다:
+
+환경 변수 설정 (export)
+alias 등록 (alias gs='git status')
+PATH 추가
+프롬프트 설정
+셸 시작 시 자동 실행 명령어
+
+
+
+
+✅ 차이점 요약
+
+  
+      
+          항목
+          ~/.bashrc
+          ~/.zshrc
+      
+  
+  
+      
+          대상 셸
+          Bash (bash)
+          Zsh (zsh)
+      
+      
+          사용 위치
+          Ubuntu 등 대부분의 리눅스
+          macOS (Catalina 이상), 또는 zsh 사용 시
+      
+      
+          실행 시점
+          Bash의 인터랙티브 셸 시작 시
+          Zsh의 인터랙티브 셸 시작 시
+      
+      
+          기타
+          종종 ~/.bash_profile과 함께 사용됨
+          설정 파일이 단일화됨 (~/.zshrc만 씀)
+      
+  
+
+
+✅ 내 셸은 뭘까?
+터미널에서 아래 명령어를 입력해보자:"><meta name=author content><link rel=canonical href=https://vardoong.github.io/doong/posts/shell/><link crossorigin=anonymous href=/doong/assets/css/stylesheet.f49d66caae9ea0fd43f21f29e71a8d3e284517ed770f2aa86fa012953ad3c9ef.css integrity="sha256-9J1myq6eoP1D8h8p5xqNPihFF+13Dyqob6ASlTrTye8=" rel="preload stylesheet" as=style><link rel=icon href=https://vardoong.github.io/doong/favicon.ico><link rel=icon type=image/png sizes=16x16 href=https://vardoong.github.io/doong/favicon-16x16.png><link rel=icon type=image/png sizes=32x32 href=https://vardoong.github.io/doong/favicon-32x32.png><link rel=apple-touch-icon href=https://vardoong.github.io/doong/apple-touch-icon.png><link rel=mask-icon href=https://vardoong.github.io/doong/safari-pinned-tab.svg><meta name=theme-color content="#2e2e33"><meta name=msapplication-TileColor content="#2e2e33"><link rel=alternate hreflang=en href=https://vardoong.github.io/doong/posts/shell/><noscript><style>#theme-toggle,.top-link{display:none}</style><style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--code-block-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style></noscript><meta property="og:url" content="https://vardoong.github.io/doong/posts/shell/"><meta property="og:site_name" content="Doong Blog"><meta property="og:title" content="Shell 설정 파일 정리"><meta property="og:description" content="🔍 Shell 설정 파일 정리: .bashrc vs .zshrc 터미널 설정을 자주 바꾸다 보면 ~/.bashrc와 ~/.zshrc가 헷갈릴 수 있다. 두 파일의 공통점과 차이점을 정리해본다.
+✅ 공통점 모두 셸 실행 시 로드되는 설정 파일이다. 보통 다음과 같은 용도로 사용된다: 환경 변수 설정 (export) alias 등록 (alias gs='git status') PATH 추가 프롬프트 설정 셸 시작 시 자동 실행 명령어 ✅ 차이점 요약 항목 ~/.bashrc ~/.zshrc 대상 셸 Bash (bash) Zsh (zsh) 사용 위치 Ubuntu 등 대부분의 리눅스 macOS (Catalina 이상), 또는 zsh 사용 시 실행 시점 Bash의 인터랙티브 셸 시작 시 Zsh의 인터랙티브 셸 시작 시 기타 종종 ~/.bash_profile과 함께 사용됨 설정 파일이 단일화됨 (~/.zshrc만 씀) ✅ 내 셸은 뭘까? 터미널에서 아래 명령어를 입력해보자:"><meta property="og:locale" content="en-us"><meta property="og:type" content="article"><meta property="article:section" content="posts"><meta property="article:published_time" content="2025-05-03T20:52:46+09:00"><meta property="article:modified_time" content="2025-05-03T20:52:46+09:00"><meta name=twitter:card content="summary"><meta name=twitter:title content="Shell 설정 파일 정리"><meta name=twitter:description content="🔍 Shell 설정 파일 정리: .bashrc vs .zshrc
+터미널 설정을 자주 바꾸다 보면 ~/.bashrc와 ~/.zshrc가 헷갈릴 수 있다. 두 파일의 공통점과 차이점을 정리해본다.
+
+✅ 공통점
+
+모두 셸 실행 시 로드되는 설정 파일이다.
+보통 다음과 같은 용도로 사용된다:
+
+환경 변수 설정 (export)
+alias 등록 (alias gs='git status')
+PATH 추가
+프롬프트 설정
+셸 시작 시 자동 실행 명령어
+
+
+
+
+✅ 차이점 요약
+
+  
+      
+          항목
+          ~/.bashrc
+          ~/.zshrc
+      
+  
+  
+      
+          대상 셸
+          Bash (bash)
+          Zsh (zsh)
+      
+      
+          사용 위치
+          Ubuntu 등 대부분의 리눅스
+          macOS (Catalina 이상), 또는 zsh 사용 시
+      
+      
+          실행 시점
+          Bash의 인터랙티브 셸 시작 시
+          Zsh의 인터랙티브 셸 시작 시
+      
+      
+          기타
+          종종 ~/.bash_profile과 함께 사용됨
+          설정 파일이 단일화됨 (~/.zshrc만 씀)
+      
+  
+
+
+✅ 내 셸은 뭘까?
+터미널에서 아래 명령어를 입력해보자:"><script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Posts","item":"https://vardoong.github.io/doong/posts/"},{"@type":"ListItem","position":2,"name":"Shell 설정 파일 정리","item":"https://vardoong.github.io/doong/posts/shell/"}]}</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"Shell 설정 파일 정리","name":"Shell 설정 파일 정리","description":"🔍 Shell 설정 파일 정리: .bashrc vs .zshrc 터미널 설정을 자주 바꾸다 보면 ~/.bashrc와 ~/.zshrc가 헷갈릴 수 있다. 두 파일의 공통점과 차이점을 정리해본다.\n✅ 공통점 모두 셸 실행 시 로드되는 설정 파일이다. 보통 다음과 같은 용도로 사용된다: 환경 변수 설정 (export) alias 등록 (alias gs='git status') PATH 추가 프롬프트 설정 셸 시작 시 자동 실행 명령어 ✅ 차이점 요약 항목 ~/.bashrc ~/.zshrc 대상 셸 Bash (bash) Zsh (zsh) 사용 위치 Ubuntu 등 대부분의 리눅스 macOS (Catalina 이상), 또는 zsh 사용 시 실행 시점 Bash의 인터랙티브 셸 시작 시 Zsh의 인터랙티브 셸 시작 시 기타 종종 ~/.bash_profile과 함께 사용됨 설정 파일이 단일화됨 (~/.zshrc만 씀) ✅ 내 셸은 뭘까? 터미널에서 아래 명령어를 입력해보자:\n","keywords":[],"articleBody":"🔍 Shell 설정 파일 정리: .bashrc vs .zshrc 터미널 설정을 자주 바꾸다 보면 ~/.bashrc와 ~/.zshrc가 헷갈릴 수 있다. 두 파일의 공통점과 차이점을 정리해본다.\n✅ 공통점 모두 셸 실행 시 로드되는 설정 파일이다. 보통 다음과 같은 용도로 사용된다: 환경 변수 설정 (export) alias 등록 (alias gs='git status') PATH 추가 프롬프트 설정 셸 시작 시 자동 실행 명령어 ✅ 차이점 요약 항목 ~/.bashrc ~/.zshrc 대상 셸 Bash (bash) Zsh (zsh) 사용 위치 Ubuntu 등 대부분의 리눅스 macOS (Catalina 이상), 또는 zsh 사용 시 실행 시점 Bash의 인터랙티브 셸 시작 시 Zsh의 인터랙티브 셸 시작 시 기타 종종 ~/.bash_profile과 함께 사용됨 설정 파일이 단일화됨 (~/.zshrc만 씀) ✅ 내 셸은 뭘까? 터미널에서 아래 명령어를 입력해보자:\necho $SHELL 결과가 /bin/zsh → zsh 사용 중 결과가 /bin/bash → bash 사용 중 ✅ 참고 정보 bash ~/.bash_profile: 로그인 셸에서 실행 ~/.bashrc: 비로그인 인터랙티브 셸에서 실행 zsh 대부분의 설정은 ~/.zshrc 하나로 통합 ✅ 요약 macOS 유저는 보통 ~/.zshrc만 수정하면 됨 Linux 유저는 ~/.bashrc가 메인 설정 파일일 가능성이 높음 자신의 셸이 무엇인지 먼저 확인하는 게 중요! ","wordCount":"167","inLanguage":"en","datePublished":"2025-05-03T20:52:46+09:00","dateModified":"2025-05-03T20:52:46+09:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://vardoong.github.io/doong/posts/shell/"},"publisher":{"@type":"Organization","name":"Doong Blog","logo":{"@type":"ImageObject","url":"https://vardoong.github.io/doong/favicon.ico"}}}</script></head><body id=top><script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add("dark"):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove("dark"):window.matchMedia("(prefers-color-scheme: dark)").matches&&document.body.classList.add("dark")</script><header class=header><nav class=nav><div class=logo><a href=https://vardoong.github.io/doong/ accesskey=h title="Doong Blog (Alt + H)">Doong Blog</a><div class=logo-switches><button id=theme-toggle accesskey=t title="(Alt + T)" aria-label="Toggle theme"><svg id="moon" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button></div></div><ul id=menu></ul></nav></header><main class=main><article class=post-single><header class=post-header><h1 class="post-title entry-hint-parent">Shell 설정 파일 정리</h1><div class=post-meta><span title='2025-05-03 20:52:46 +0900 +0900'>May 3, 2025</span></div></header><div class=post-content><h1 id=-shell-설정-파일-정리-bashrc-vs-zshrc>🔍 Shell 설정 파일 정리: <code>.bashrc</code> vs <code>.zshrc</code><a hidden class=anchor aria-hidden=true href=#-shell-설정-파일-정리-bashrc-vs-zshrc>#</a></h1><p>터미널 설정을 자주 바꾸다 보면 <code>~/.bashrc</code>와 <code>~/.zshrc</code>가 헷갈릴 수 있다. 두 파일의 공통점과 차이점을 정리해본다.</p><hr><h2 id=-공통점>✅ 공통점<a hidden class=anchor aria-hidden=true href=#-공통점>#</a></h2><ul><li>모두 <strong>셸 실행 시 로드되는 설정 파일</strong>이다.</li><li>보통 다음과 같은 용도로 사용된다:<ul><li>환경 변수 설정 (<code>export</code>)</li><li>alias 등록 (<code>alias gs='git status'</code>)</li><li>PATH 추가</li><li>프롬프트 설정</li><li>셸 시작 시 자동 실행 명령어</li></ul></li></ul><hr><h2 id=-차이점-요약>✅ 차이점 요약<a hidden class=anchor aria-hidden=true href=#-차이점-요약>#</a></h2><table><thead><tr><th>항목</th><th><code>~/.bashrc</code></th><th><code>~/.zshrc</code></th></tr></thead><tbody><tr><td>대상 셸</td><td>Bash (<code>bash</code>)</td><td>Zsh (<code>zsh</code>)</td></tr><tr><td>사용 위치</td><td>Ubuntu 등 대부분의 리눅스</td><td>macOS (Catalina 이상), 또는 zsh 사용 시</td></tr><tr><td>실행 시점</td><td>Bash의 <strong>인터랙티브 셸</strong> 시작 시</td><td>Zsh의 <strong>인터랙티브 셸</strong> 시작 시</td></tr><tr><td>기타</td><td>종종 <code>~/.bash_profile</code>과 함께 사용됨</td><td>설정 파일이 단일화됨 (<code>~/.zshrc</code>만 씀)</td></tr></tbody></table><hr><h2 id=-내-셸은-뭘까>✅ 내 셸은 뭘까?<a hidden class=anchor aria-hidden=true href=#-내-셸은-뭘까>#</a></h2><p>터미널에서 아래 명령어를 입력해보자:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>echo $SHELL
+</span></span></code></pre></div><ul><li>결과가 /bin/zsh → zsh 사용 중</li><li>결과가 /bin/bash → bash 사용 중</li></ul><h2 id=-참고-정보>✅ 참고 정보<a hidden class=anchor aria-hidden=true href=#-참고-정보>#</a></h2><ul><li>bash</li><li>~/.bash_profile: 로그인 셸에서 실행</li><li>~/.bashrc: 비로그인 인터랙티브 셸에서 실행</li><li>zsh</li><li>대부분의 설정은 ~/.zshrc 하나로 통합</li></ul><h2 id=-요약>✅ 요약<a hidden class=anchor aria-hidden=true href=#-요약>#</a></h2><ul><li>macOS 유저는 보통 ~/.zshrc만 수정하면 됨</li><li>Linux 유저는 ~/.bashrc가 메인 설정 파일일 가능성이 높음</li><li>자신의 셸이 무엇인지 먼저 확인하는 게 중요!</li></ul></div><footer class=post-footer><ul class=post-tags></ul></footer></article></main><footer class=footer><span>&copy; 2025 <a href=https://vardoong.github.io/doong/>Doong Blog</a></span> ·
+<span>Powered by
+<a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
+        <a href=https://github.com/adityatelange/hugo-PaperMod/ rel=noopener target=_blank>PaperMod</a></span></footer><a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg>
+</a><script>let menu=document.getElementById("menu");menu&&(menu.scrollLeft=localStorage.getItem("menu-scroll-position"),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}),document.querySelectorAll('a[href^="#"]').forEach(e=>{e.addEventListener("click",function(e){e.preventDefault();var t=this.getAttribute("href").substr(1);window.matchMedia("(prefers-reduced-motion: reduce)").matches?document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView({behavior:"smooth"}),t==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${t}`)})})</script><script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script><script>document.getElementById("theme-toggle").addEventListener("click",()=>{document.body.className.includes("dark")?(document.body.classList.remove("dark"),localStorage.setItem("pref-theme","light")):(document.body.classList.add("dark"),localStorage.setItem("pref-theme","dark"))})</script></body></html>

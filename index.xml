@@ -1,5 +1,55 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Doong Blog</title><link>https://vardoong.github.io/doong/</link><description>Recent content on Doong Blog</description><generator>Hugo -- 0.147.1</generator><language>en-us</language><lastBuildDate>Fri, 02 May 2025 15:21:04 +0900</lastBuildDate><atom:link href="https://vardoong.github.io/doong/index.xml" rel="self" type="application/rss+xml"/><item><title>GitHub Labels 자동 생성 스크립트 만들기</title><link>https://vardoong.github.io/doong/posts/github-labels/</link><pubDate>Fri, 02 May 2025 15:21:04 +0900</pubDate><guid>https://vardoong.github.io/doong/posts/github-labels/</guid><description>&lt;h1 id="github-labels-자동-생성-스크립트-만들기">GitHub Labels 자동 생성 스크립트 만들기&lt;/h1>
-&lt;p>이 글은 GitHub 이슈/PR 라벨을 일관성 있게 관리하기 위한 &lt;code>labels.sh&lt;/code> 자동화 스크립트를 만드는 방법과 실행 절차를 소개합니다.&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Doong Blog</title><link>https://vardoong.github.io/doong/</link><description>Recent content on Doong Blog</description><generator>Hugo -- 0.147.1</generator><language>en-us</language><lastBuildDate>Sat, 03 May 2025 20:52:46 +0900</lastBuildDate><atom:link href="https://vardoong.github.io/doong/index.xml" rel="self" type="application/rss+xml"/><item><title>Shell 설정 파일 정리</title><link>https://vardoong.github.io/doong/posts/shell/</link><pubDate>Sat, 03 May 2025 20:52:46 +0900</pubDate><guid>https://vardoong.github.io/doong/posts/shell/</guid><description>&lt;h1 id="-shell-설정-파일-정리-bashrc-vs-zshrc">🔍 Shell 설정 파일 정리: &lt;code>.bashrc&lt;/code> vs &lt;code>.zshrc&lt;/code>&lt;/h1>
+&lt;p>터미널 설정을 자주 바꾸다 보면 &lt;code>~/.bashrc&lt;/code>와 &lt;code>~/.zshrc&lt;/code>가 헷갈릴 수 있다. 두 파일의 공통점과 차이점을 정리해본다.&lt;/p>
+&lt;hr>
+&lt;h2 id="-공통점">✅ 공통점&lt;/h2>
+&lt;ul>
+&lt;li>모두 &lt;strong>셸 실행 시 로드되는 설정 파일&lt;/strong>이다.&lt;/li>
+&lt;li>보통 다음과 같은 용도로 사용된다:
+&lt;ul>
+&lt;li>환경 변수 설정 (&lt;code>export&lt;/code>)&lt;/li>
+&lt;li>alias 등록 (&lt;code>alias gs='git status'&lt;/code>)&lt;/li>
+&lt;li>PATH 추가&lt;/li>
+&lt;li>프롬프트 설정&lt;/li>
+&lt;li>셸 시작 시 자동 실행 명령어&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h2 id="-차이점-요약">✅ 차이점 요약&lt;/h2>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>항목&lt;/th>
+&lt;th>&lt;code>~/.bashrc&lt;/code>&lt;/th>
+&lt;th>&lt;code>~/.zshrc&lt;/code>&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>대상 셸&lt;/td>
+&lt;td>Bash (&lt;code>bash&lt;/code>)&lt;/td>
+&lt;td>Zsh (&lt;code>zsh&lt;/code>)&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>사용 위치&lt;/td>
+&lt;td>Ubuntu 등 대부분의 리눅스&lt;/td>
+&lt;td>macOS (Catalina 이상), 또는 zsh 사용 시&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>실행 시점&lt;/td>
+&lt;td>Bash의 &lt;strong>인터랙티브 셸&lt;/strong> 시작 시&lt;/td>
+&lt;td>Zsh의 &lt;strong>인터랙티브 셸&lt;/strong> 시작 시&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>기타&lt;/td>
+&lt;td>종종 &lt;code>~/.bash_profile&lt;/code>과 함께 사용됨&lt;/td>
+&lt;td>설정 파일이 단일화됨 (&lt;code>~/.zshrc&lt;/code>만 씀)&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;hr>
+&lt;h2 id="-내-셸은-뭘까">✅ 내 셸은 뭘까?&lt;/h2>
+&lt;p>터미널에서 아래 명령어를 입력해보자:&lt;/p></description></item><item><title>GitHub Labels 자동 생성 스크립트 만들기</title><link>https://vardoong.github.io/doong/posts/github-labels/</link><pubDate>Fri, 02 May 2025 15:21:04 +0900</pubDate><guid>https://vardoong.github.io/doong/posts/github-labels/</guid><description>&lt;p>이 글은 GitHub 이슈/PR 라벨을 일관성 있게 관리하기 위한 &lt;code>labels.sh&lt;/code> 자동화 스크립트를 만드는 방법과 실행 절차를 소개합니다.&lt;/p>
 &lt;hr>
 &lt;h2 id="1-labelssh-파일을-만드는-이유와-작성-방식">1. &lt;code>labels.sh&lt;/code> 파일을 만드는 이유와 작성 방식&lt;/h2>
 &lt;h3 id="-왜-필요한가">✅ 왜 필요한가?&lt;/h3>
@@ -84,7 +134,7 @@
 &lt;li>&lt;code>jq&lt;/code> 튜토리얼: &lt;a href="https://stedolan.github.io/jq/tutorial/">https://stedolan.github.io/jq/tutorial/&lt;/a>&lt;/li>
 &lt;/ul>
 &lt;hr>
-&lt;p>이렇게 만들어두면 새로운 프로젝트 세팅할 때나 다른 레포로 옮길 때 아주 유용하게 쓸 수 있습니다. 😉&lt;/p></description></item><item><title>AWS EC2 + Nginx + Spring + SSL 배포 가이드</title><link>https://vardoong.github.io/doong/posts/aws-ec2-dns-nginx/</link><pubDate>Sat, 26 Apr 2025 14:27:38 +0900</pubDate><guid>https://vardoong.github.io/doong/posts/aws-ec2-dns-nginx/</guid><description>&lt;p>Spring 프로젝트를 AWS EC2에 배포하고&lt;br>
+&lt;p>이렇게 만들어두면 새로운 프로젝트 세팅할 때나 다른 레포로 옮길 때 아주 유용하게 쓸 수 있습니다. 😉&lt;/p></description></item><item><title>AWS EC2 + Nginx + Spring + SSL 배포 가이드</title><link>https://vardoong.github.io/doong/posts/aws-ec2-dns-nginx/</link><pubDate>Sat, 26 Apr 2025 18:27:38 +0900</pubDate><guid>https://vardoong.github.io/doong/posts/aws-ec2-dns-nginx/</guid><description>&lt;p>Spring 프로젝트를 AWS EC2에 배포하고&lt;br>
 &lt;strong>Nginx 리버스 프록시 + SSL(HTTPS)&lt;/strong> 까지 적용한 기록.&lt;/p>
 &lt;hr>
 &lt;h2 id="-사용-환경">☁️ 사용 환경&lt;/h2>
