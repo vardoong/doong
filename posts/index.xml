@@ -1,4 +1,40 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Posts on Doong Blog</title><link>https://vardoong.github.io/doong/posts/</link><description>Recent content in Posts on Doong Blog</description><generator>Hugo -- 0.147.1</generator><language>en-us</language><lastBuildDate>Sat, 03 May 2025 20:52:46 +0900</lastBuildDate><atom:link href="https://vardoong.github.io/doong/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Shell 설정 파일 정리</title><link>https://vardoong.github.io/doong/posts/shell/</link><pubDate>Sat, 03 May 2025 20:52:46 +0900</pubDate><guid>https://vardoong.github.io/doong/posts/shell/</guid><description>&lt;h1 id="-shell-설정-파일-정리-bashrc-vs-zshrc">🔍 Shell 설정 파일 정리: &lt;code>.bashrc&lt;/code> vs &lt;code>.zshrc&lt;/code>&lt;/h1>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Posts on Doong Blog</title><link>https://vardoong.github.io/doong/posts/</link><description>Recent content in Posts on Doong Blog</description><generator>Hugo -- 0.147.1</generator><language>en-us</language><lastBuildDate>Sat, 03 May 2025 23:50:44 +0900</lastBuildDate><atom:link href="https://vardoong.github.io/doong/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>GitHub 라벨 자동 업데이트 스크립트</title><link>https://vardoong.github.io/doong/posts/create-git-labels/</link><pubDate>Sat, 03 May 2025 23:50:44 +0900</pubDate><guid>https://vardoong.github.io/doong/posts/create-git-labels/</guid><description>&lt;p>GitHub 프로젝트에서 라벨(label)을 일괄적으로 관리하고 싶을 때 사용할 수 있는 Bash 스크립트입니다. 기존 라벨을 삭제하고, 지정한 JSON 파일을 기반으로 새로운 라벨을 생성합니다.&lt;/p>
+&lt;h2 id="-사전-준비">🔧 사전 준비&lt;/h2>
+&lt;ol>
+&lt;li>
+&lt;p>&lt;strong>gh (GitHub CLI) 설치&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://cli.github.com/">GitHub CLI 다운로드 페이지&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>jq 설치&lt;/strong> (JSON 파싱을 위한 도구)&lt;/p>
+&lt;ul>
+&lt;li>macOS: &lt;code>brew install jq&lt;/code>&lt;/li>
+&lt;li>Ubuntu: &lt;code>sudo apt install jq&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>GitHub 인증&lt;/strong> (1회만 수행)&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>gh auth login
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;/ol>
+&lt;h2 id="-라벨-정의-파일">📁 라벨 정의 파일&lt;/h2>
+&lt;p>&lt;code>.github/labels.json&lt;/code> 파일에 라벨을 정의합니다:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-json" data-lang="json">&lt;span style="display:flex;">&lt;span>[
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;#34;name&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;type: bug&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;#34;color&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;#d73a4a&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;#34;description&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;예상과 다른 동작 또는 오류&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> },
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;#34;name&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;type: feature&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;#34;color&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;#a2eeef&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;#34;description&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;새로운 기능 제안&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>]
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="-스크립트-내용">📜 스크립트 내용&lt;/h2>
+&lt;p>&lt;code>create-labels.sh&lt;/code> 파일을 생성하고 다음 내용을 작성합니다:&lt;/p></description></item><item><title>Shell 설정 파일 정리</title><link>https://vardoong.github.io/doong/posts/shell/</link><pubDate>Sat, 03 May 2025 20:52:46 +0900</pubDate><guid>https://vardoong.github.io/doong/posts/shell/</guid><description>&lt;h1 id="-shell-설정-파일-정리-bashrc-vs-zshrc">🔍 Shell 설정 파일 정리: &lt;code>.bashrc&lt;/code> vs &lt;code>.zshrc&lt;/code>&lt;/h1>
 &lt;p>터미널 설정을 자주 바꾸다 보면 &lt;code>~/.bashrc&lt;/code>와 &lt;code>~/.zshrc&lt;/code>가 헷갈릴 수 있다. 두 파일의 공통점과 차이점을 정리해본다.&lt;/p>
 &lt;hr>
 &lt;h2 id="-공통점">✅ 공통점&lt;/h2>
