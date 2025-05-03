@@ -1,5 +1,5 @@
 ---
-date: '2025-04-26T14:27:38+09:00'
+date: '2025-04-26T18:27:38+09:00'
 draft: false
 title: "AWS EC2 + Nginx + Spring + SSL 배포 가이드"
 ---
@@ -64,7 +64,7 @@ public String hello(@RequestParam String name) {
 }
 ```
 
-7️⃣ Nginx 설정
+## 7️⃣ Nginx 설정
 ```bash
 sudo vi /etc/nginx/nginx.conf
 ```
